@@ -3,7 +3,6 @@
 let availableFighters = [];
 function createAvailableFighters(){
 
-
     let fighter = new FighterClass(
         "<font color='#66FCF1'>Man</font>", //name
         1, //lvl
