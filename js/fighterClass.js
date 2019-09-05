@@ -17,6 +17,7 @@ let world = "Street";
 let worldDifficulty = 1;
 
 let teamMenu = false; //hvis man er i teammenu
+let fighterShopMenu = false; //hvis man er i fightershopmenu
 
 let dead = true; //hvis player er død
 let fighting = false; //hvis man er i kamp
@@ -29,6 +30,10 @@ let globalFightId = 0;
 let encounterNumber = localStorage.getItem("encounterNumber") //henter gammel localstorage //null om den ikke finnes
 checkLocalStorage(encounterNumber,0);
 
+let globalLevel = 1;
+let xp = 3;
+let maxXp = 5;
+/*
 let globalLevel = Number(localStorage.getItem("globalLevel")) //henter gammel localstorage //null om den ikke finnes
 checkLocalStorage(globalLevel,1)
 
@@ -37,6 +42,7 @@ checkLocalStorage(xp,0);
 
 let maxXp = Number(localStorage.getItem("maxXp")) //henter gammel localstorage //null om den ikke finnes
 checkLocalStorage(maxXp,5);
+*/
 
 function checkLocalStorage(variable, startNum){ //henter gammel localstorage //null om den ikke finnes
     if(variable == null){

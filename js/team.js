@@ -19,6 +19,7 @@ function chooseTeamMenu(){
     removeAllButtons();
     addTeamButtons();
     teamMenu = true;
+    fighterShopMenu = false;
 }
 const teamMenuEl = document.getElementById("teamMenu")
 teamMenuEl.addEventListener("click", chooseTeamMenu);

@@ -8,26 +8,40 @@ function createAvailableFighters(){
         "<font color='#66FCF1'>Dog</font>",
         "<font color='#66FCF1'>Chicken</font>",
         "<font color='#66FCF1'>Goblin</font>",
-        "<font color='#66FCF1'>Dwarf</font>"
+        "<font color='#66FCF1'>Dwarf</font>",
+        "<font color='#66FCF1'>Slave</font>",
+        "<font color='#66FCF1'>Retard</font>"
     ];
      
     let availableFightersNumber = Math.floor(Math.random()*5)+1;
 
     for(var i = 0; i < availableFightersNumber;i++){
+
         let fighterName = fighterNames[Math.floor(Math.random()*fighterNames.length)];
+        let fighterLevel = Math.floor(Math.random()*globalLevel)+1;
+        let fighterHP = (Math.floor(Math.random()*5)+3)*fighterLevel;
+        let fighterdmgmin = (Math.floor(Math.random()*2)+1)*fighterLevel;
+        let fighterdmgmax = (fighterdmgmin + Math.floor(Math.random()*2))*fighterLevel;
+        let fighterGold = (Math.floor(Math.random()*14)+7)*fighterLevel;
+        let fighterXp = (Math.floor(Math.random()*7)+4)*fighterLevel;
+        let fighterAtSpeed = (Math.floor(Math.random()*1000)+1500);
+        let fighterRarity = 1;
+        if(Math.random() < 0.1){
+            fighterRarity = 2;
+        }
 
         let fighter = new FighterClass(
             fighterName, //name
-            1, //lvl
-            5, //hp
-            5, //maxhp
-            1, //dmgmin
-            2, //dmgmax
-            10, //gold
+            fighterLevel, //lvl
+            fighterHP*fighterRarity, //hp
+            fighterHP*fighterRarity, //maxhp
+            fighterdmgmin*fighterRarity, //dmgmin
+            fighterdmgmax*fighterRarity, //dmgmax
+            fighterGold*fighterRarity, //gold
             0, //xp
-            5, //xpmax
-            2000, //atspeed
-            1, //rarity
+            fighterXp, //xpmax
+            fighterAtSpeed-(100*fighterRarity), //atspeed
+            fighterRarity, //rarity
             "fighter" + globalFightId //id
         )
         availableFighters.push(fighter);
@@ -58,6 +72,7 @@ function chooseFighterShopMenu(){
     removeAllButtons();
     addFighterShopButtons();
     teamMenu = false;
+    fighterShopMenu = true;
 }
 const fighterShopMenuEl = document.getElementById("fighterShopMenu")
 fighterShopMenuEl.addEventListener("click", chooseFighterShopMenu);

@@ -13,7 +13,7 @@ function statsUpdate(){ //i fanen til venstre stats
         playerPlaceTextEl.innerHTML = "None";
     } else {
         playerPlaceTextEl.innerHTML = //i playerboxen
-        "<font color='#FFFFFF'>" + player.name + rarityStars(player.rarity) //navn og rarity
+        "<font color='#FFFFFF'>" + player.name + rarityStars(player.rarity) + //navn og rarity
         "<br>Level: " + player.level + //level
         "<br>Health: <font color='green'>" + player.health + "</font>/<font color='green'>" + player.maxHealth + "</font>"; //health av maxHealth
 
@@ -80,4 +80,18 @@ function enemyStatsUpdate(){ //helt høyre stats
         //enemyStatsEl.innerHTML = "</font><br><font color='white'>You died";
     }
     requestAnimationFrame(enemyStatsUpdate);
+}
+
+timeIncrement();
+function timeIncrement(){ //for å ha en timer func
+    sec++; //øker sekunder
+    if(sec === 60){ //øker minutter
+        sec = 0; //setter sekundene til 0 igjen for hvert minutt
+        min++; //øker minutt med 1
+        createAvailableFighters(); //oppdaterer shoppen hvert min
+        if(fighterShopMenu == 1){
+            chooseFighterShopMenu();
+        }
+    }
+    setTimeout(timeIncrement, 1000); //kjører funksjonen hvert sekund
 }

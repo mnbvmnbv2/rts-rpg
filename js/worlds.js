@@ -9,6 +9,8 @@ function addWorldButtons(){
 function chooseWorldMenu(){
     removeAllButtons();
     addWorldButtons();
+    teamMenu = false;
+    fighterShopMenu = false;
 }
 const worldMenuEl = document.getElementById("worldMenu")
 worldMenuEl.addEventListener("click", chooseWorldMenu);

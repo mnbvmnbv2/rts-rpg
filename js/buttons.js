@@ -1,13 +1,3 @@
-timeIncrement();
-function timeIncrement(){ //for å ha en timer func
-    sec++; //øker sekunder
-    if(sec === 60){ //øker minutter
-        sec = 0; //setter sekundene til 0 igjen for hvert minutt
-        min++; //øker minutt med 1
-    }
-    setTimeout(timeIncrement, 1000); //kjører funksjonen hvert sekund
-}
-
 var buttonsEl = document.getElementById("buttons"); 
 
 function popupFunc(byId){ //for å toggle synligheten til span(popup text boksen)
@@ -72,6 +62,7 @@ function chooseFightMenu(){
     removeAllButtons();
     addFighterButtons();
     teamMenu = false;
+    fighterShopMenu = false;
 }
 const fightMenuEl = document.getElementById("fightMenu")
 fightMenuEl.addEventListener("click", chooseFightMenu);
@@ -86,6 +77,7 @@ function chooseBuildingMenu(){
     removeAllButtons();
     addBuildingButtons();
     teamMenu = false;
+    fighterShopMenu = false;
 }
 const buildingMenuEl = document.getElementById("buildingMenu")
 buildingMenuEl.addEventListener("click", chooseBuildingMenu);
