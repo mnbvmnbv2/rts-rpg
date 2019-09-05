@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head lang="UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="css\style.css">
+        <title>Adventure Game</title>
+    </head>
+    <body>
+        <div id="topBar">
+            <div id="topLeft" class="hpBarContainer"><div id="topLeftBar"class="hpBar"></div><p id="topLeftText"class="hpBarText">0/0</p></div>
+            <div id="topMid"><b>Road 1-1</b></div>
+            <div id="topRight" class="hpBarContainer"><div id="topRightBar"class="hpBar"></div><p id="topRightText"class="hpBarText">0/0</p></div>
+            <div id="autoFightBlink">AUTOFIGHTING</div>
+        </div>
+        <div id="gameWindow">
+            <div id="playerPlace" class="fighterPlace"><div id="playerPlaceText" class="fighterPlaceText">None</div></div>
+            <div id="textWin"></div>
+            <div id="enemyPlace" class="fighterPlace"><div id="enemyPlaceText" class="fighterPlaceText">None</div></div>
+        </div>
+        <div id="downWin">
+            <div id="stats1" class="statsHolder">
+                <h4>Player</h4>
+                <div id="stats1left" class="stats"></div>
+                <div id="stats1right" class="stats"></div>
+            </div>
+            <div id="stats2" class="statsHolder">
+                <h4>Fighter stats</h4>
+                <div id="stats2left" class="stats"></div>
+                <div id="stats2right" class="stats"></div>
+            </div>
+            <div id="midDown">
+                <div id="buttonsMenu">
+                    <div id="fightMenu" class="menuChange">Fight</div>
+                    <div id="teamMenu" class="menuChange">Team</div>
+                    <div id="buildingMenu" class="menuChange">Buildings</div>
+                    <div id="fighterShopMenu" class="menuChange">FighterShop</div>
+                    <div id="shopMenu" class="menuChange">Shop</div>
+                    <div id="worldMenu" class="menuChange">World</div>
+                    <div id="skillsMenu" class="menuChange">Skills</div>
+                    <div id="petMenu" class="menuChange">Pet</div>
+                    <div id="statsMenu" class="menuChange">Stats</div>
+                    <div id="settingsMenu" class="menuChange">Settings</div>
+                </div>
+                <div id="buttons"></div>
+                </div>
+            <div id="stats3" class="statsHolder">
+                <h4>Enemy stats</h4>
+                <div id="stats3left" class="stats"></div>
+                <div id="stats3right" class="stats"></div>
+            </div>
+            <div id="stats4" class="statsHolder">
+                <h4>All-time</h4>
+                <div id="stats4left" class="stats"></div>
+                <div id="stats4right" class="stats"></div>
+            </div>
+            </div>
+        </div>
+        <div id="xpContainer">
+            <div id="xpBar"></div>
+            <p id="xpBarText">0/0</p>
+        </div>
+        <div id="globalXpContainer">
+            <div id="globalXpBar"></div>
+            <p id="globalXpBarText">0/0</p>
+        </div>
+
+        <script src="js\enemies.js"></script>
+        <script src="js\fighterClass.js"></script>
+        <script src="js\team.js"></script>
+        <script src="js\showStats.js"></script>
+        <script src="js\worlds.js"></script>
+        <script src="js\buttons.js"></script>
+        <script src="js\fighterShop.js"></script>
+        <!---<script src="js\items.js"></script>--->
+        <script src="js\playerLevels.js"></script>
+        
+    </body>
+</html>
