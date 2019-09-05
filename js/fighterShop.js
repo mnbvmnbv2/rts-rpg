@@ -21,6 +21,7 @@ function createAvailableFighters(){
     availableFighters.push(fighter);
     globalFightId++; 
 }
+createAvailableFighters();
 
 
 function addFighterShopButtons(){
