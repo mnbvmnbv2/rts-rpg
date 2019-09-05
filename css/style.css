@@ -231,20 +231,23 @@ h4{
   text-shadow:0px 1px 0px #202020;
   transition: 0.5s;
   margin: 5px;
+  transition: background-color 0.15s;
   animation: popIn 0.25s ease-in;
-}
-
-.buttonify:hover {
-	background-color:rgb(84, 194, 188);
-}
-.buttonify:active {
-	position:relative;
-	top:1px;
 }
 @keyframes popIn{
   0%{padding: 0px 0px; font-size: 0px;}
   75%{padding: 9px 70px; font-size: 20px;}
   100%{padding:7px 59px; font-size: 15px;}
+}
+
+.buttonify:hover {
+	background-color:rgb(84, 194, 188);
+}
+
+.buttonify:active {
+	position:relative;
+  top:1px;
+  background-color: rgb(146, 44, 44);
 }
 
 /***** buttons popup *****/

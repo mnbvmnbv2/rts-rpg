@@ -12,34 +12,25 @@ function addTeamButtons(){
         "<br>AttackSpeed: "+team[i].atSpeed+
         "<br>Experience: "+team[i].xp+"/"+team[i].maxXp, //hvor rask
         //funksjonen som velger denne fighteren
-         chooseFighter);
+        chooseFighter);
     }
 }
 function chooseTeamMenu(){
     removeAllButtons();
     addTeamButtons();
+    teamMenu = true;
 }
 const teamMenuEl = document.getElementById("teamMenu")
 teamMenuEl.addEventListener("click", chooseTeamMenu);
 
-function buyFriendly(buygold,name,level,hp,dmgmin,dmgmax,goldvalue,xp,maxxp,atspeed,rarity){
-    if(gold >= buygold){
-        gold -= buygold
-        var friendly = new PlayerClass(
-            name,
-            level,
-            hp,
-            hp, //maxhp
-            dmgmin,
-            dmgmax,
-            goldvalue, //gold
-            xp,
-            maxxp,
-            atspeed,
-            rarity,
-            "fighter" + globalFightId
-        )
-        globalFightId++;
-        team.push(friendly);
+function chooseFighter(e){
+    if(fighting == false){
+        if(e.target.innerHTML.includes("<font")){
+            player = team[buttonsz.indexOf(e.target)];
+            dead = false;
+        } else{
+            player = team[buttonsz.indexOf(e.target.parentNode)];
+            dead = false;
+        }
     }
 }

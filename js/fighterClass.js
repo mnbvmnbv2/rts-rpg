@@ -16,6 +16,8 @@ let globalLevel = 1;*/
 let world = "Street";
 let worldDifficulty = 1;
 
+let teamMenu = false; //hvis man er i teammenu
+
 let dead = true; //hvis player er død
 let fighting = false; //hvis man er i kamp
 let autoFighting = false; //hvis autonestekamp og autostartkamp er påslått (til if statement i startkamp og nestekamp)
@@ -95,6 +97,8 @@ function rarityStars(rarity){ //returnerer stjernene til en rarityverdi
     var rarityStars;
     if(rarity == 1){
         rarityStars = "<font color='white'>✩</font>";
+    } else if(rarity == 2){
+        rarityStars = "<font color='white'>✩✩</font>"
     }
     return rarityStars;
 }
@@ -150,24 +154,15 @@ class PlayerClass extends FighterClass{ //dette er player class (levelup og egen
             this.health = this.maxHealth;
             this.level++;
             textWinEl.innerHTML += this.name + " is now level <font color='yellow'>" + this.level + "</font><br>";
+            if(teamMenu == true){
+                chooseTeamMenu();
+            }
         }
     }
 }
 
 var player; //lager global variabel for player og enemy
 var enemy;
-
-function chooseFighter(e){
-    if(fighting == false){
-        if(e.target.innerHTML.includes("<font")){
-            player = team[buttonsz.indexOf(e.target)];
-            dead = false;
-        } else{
-            player = team[buttonsz.indexOf(e.target.parentNode)];
-            dead = false;
-        }
-    }
-}
 
 //enemyNames = ["Hans", "Kuku", "Ballong", "Stein"];
 //enemyName = enemyNames[Math.floor(Math.random()*4)];

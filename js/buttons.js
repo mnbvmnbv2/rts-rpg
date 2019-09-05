@@ -71,6 +71,7 @@ function addFighterButtons(){
 function chooseFightMenu(){
     removeAllButtons();
     addFighterButtons();
+    teamMenu = false;
 }
 const fightMenuEl = document.getElementById("fightMenu")
 fightMenuEl.addEventListener("click", chooseFightMenu);
@@ -84,6 +85,7 @@ function addBuildingButtons(){
 function chooseBuildingMenu(){
     removeAllButtons();
     addBuildingButtons();
+    teamMenu = false;
 }
 const buildingMenuEl = document.getElementById("buildingMenu")
 buildingMenuEl.addEventListener("click", chooseBuildingMenu);
