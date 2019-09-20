@@ -1,3 +1,14 @@
+var startButtonEl = document.getElementById("startButton") //knappen man klikker for å lukke tutorial
+var startBoxEl = document.getElementById("startBox"); //boxen med tutorial
+startButtonEl.addEventListener("click",startBoxAll); //animasjon når man lukker tutorial
+function startBoxAll(){ //første del av å lukke den
+    startBoxEl.classList.toggle("goneAnim"); //animasjonen
+    setTimeout(startBoxHidden,250); //delay på at den forblir borte
+}
+function startBoxHidden(){ //at den forblir borte
+    startBoxEl.classList.toggle("stayHidden"); //classen som setter den usynlig og bak alt annet
+}
+
 var buttonsEl = document.getElementById("buttons"); 
 
 function popupFunc(byId){ //for å toggle synligheten til span(popup text boksen)
@@ -61,26 +72,10 @@ function addFighterButtons(){
 function chooseFightMenu(){
     removeAllButtons();
     addFighterButtons();
-    teamMenu = false;
-    fighterShopMenu = false;
+    menu = "fightMenu";
 }
 const fightMenuEl = document.getElementById("fightMenu")
 fightMenuEl.addEventListener("click", chooseFightMenu);
-
-//building*****
-function addBuildingButtons(){
-    addBtn("Barracks","+1 barrack", startFight); //lager start kamp knappen
-    addBtn("Farms", "+1 farm", newEncounter) //lager neste kamp knappen
-    addBtn("Castle", "Level up castle", autoFight) //lager autofight knappen
-}
-function chooseBuildingMenu(){
-    removeAllButtons();
-    addBuildingButtons();
-    teamMenu = false;
-    fighterShopMenu = false;
-}
-const buildingMenuEl = document.getElementById("buildingMenu")
-buildingMenuEl.addEventListener("click", chooseBuildingMenu);
 
 const statsMenu = document.getElementById("statsMenu")
 

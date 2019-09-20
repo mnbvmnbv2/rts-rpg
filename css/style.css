@@ -9,6 +9,44 @@ body {
     text-align: center;
 }
 
+/* STARTBOX*/
+
+#startBox{
+  position: fixed;
+  top:2%;
+  left:2%;
+  z-index: 100;
+  width: 96%;
+  height: 96%;
+  border-radius: 50px;
+  font-size: 3vh;
+  color: black;
+  margin: auto;
+  background: linear-gradient(rgb(127, 255, 249), rgb(62, 122, 119));
+}
+#startButton{
+  font-size: 4vh;
+  background: linear-gradient(rgb(229, 145, 255), rgb(170, 170, 170));
+  color: black;
+  border-radius: 3vh;
+}
+
+.goneAnim{
+  animation: goneAnim 250ms ease-in;
+}
+.stayHidden{
+  visibility: hidden;z-index: -100;
+}
+
+@keyframes goneAnim{
+  0%{background: blue}
+  20%{background: blueviolet}
+  40%{background: chartreuse;width: 96%;height: 96%;font-size: 3vh;top:2%;left:2%;}
+  60%{background: crimson}
+  80%{background: darkkhaki;}
+  100%{background: darkturquoise; width: 0;height: 0;font-size: 0;top:49%;left:49%;}
+}
+
 /***** top *****/
 
 #topBar{
@@ -100,6 +138,7 @@ body {
     height: auto;
     text-align: center;
     color: white;
+    overflow: hidden;
 }
 
 /***** Downwin *****/
@@ -321,8 +360,8 @@ h4{
     height: 13px;
     width: 100px;
     position: absolute;
-    box-shadow:inset 0px 1px 0px 0px #840abd;
-    background:linear-gradient(to bottom, #7305bd 5%, #6a0392 100%);
+    box-shadow:inset 0px 1px 0px 0px #ab29e7;
+    background:linear-gradient(to bottom, #850cd6 5%, #5c0280 100%);
     background-color:#560068;
     border-radius:3px;
     border:1px solid #310044;
