@@ -123,16 +123,19 @@ class PlayerClass extends FighterClass{ //dette er player class (levelup og egen
     }
     levelUp(){ //levelup func for player
         if(this.xp >= this.maxXp){ //hvis man har nådd maxXP
-            this.xp -= this.maxXp;
-            this.maxXp = this.maxXp+(this.maxXp/this.level);
-            this.damageMin = this.damageMin+(this.damageMin/this.level);
-            this.damageMax = this.damageMax+(this.damageMax/this.level);
-            this.maxHealth = this.maxHealth+(this.maxHealth/this.level);
-            this.health = this.maxHealth;
-            this.level++;
-            textWinEl.innerHTML += this.name + " is now level <font color='yellow'>" + this.level + "</font><br>";
-            if(menu == "teamMenu"){
-                chooseTeamMenu();
+            console.log("test")
+            if(this.level < this.maxLevel){
+                this.xp -= this.maxXp;
+                this.maxXp = this.maxXp+(this.maxXp/this.level);
+                this.damageMin = this.damageMin+(this.damageMin/this.level);
+                this.damageMax = this.damageMax+(this.damageMax/this.level);
+                this.maxHealth = this.maxHealth+(this.maxHealth/this.level);
+                this.health = this.maxHealth;
+                this.level++;
+                textWinEl.innerHTML += this.name + " is now level <font color='yellow'>" + this.level + "</font><br>";
+                if(menu == "teamMenu"){
+                    chooseTeamMenu();
+                }
             }
         }
     }
