@@ -34,14 +34,13 @@ function statsUpdate(){ //i fanen til venstre stats
         "<br><font color='white'>Items: </font>";           //first item;;
 
         stats2rightEl.innerHTML =  //samme som over men talldelen
-        "<font color='red'>"    +player.damageMin + "-" + player.damageMax +        " </font>" + //dmg
+        "<font color='red'>"    +player.dmgMin + "-" + player.dmgMax +        " </font>" + //dmg
         "<br><font>"+player.atSpeed +                                               " </font>" + //atspeed
         "<br><font>"+typeBoxes(player.type)+                                        " </font>" + //typen
         "<br><font>"+player.level+"/"+player.maxLevel+                              " </font>" + //lvl
         "<br><font>"+player.xp+"/"+player.maxXp+                                    " </font>" + //hvor mye xp
-        "<br><font>"+player.defence[0]+                                             " </font>" + //first defence
-        "<br><font>"+player.critDmg+" (chance "+player.critChance+")"+              " </font>" + //crit (chance x)
-        "<br><font>"+player.items[0]+                                               " </font>"; //first item;
+        "<br><font>"+player.defence+                                             " </font>" + //first defence
+        "<br><font>"+player.critMult+"x (chance "+player.critChance+"%)"+              " </font>"; //crit (chance x)
 
         //xp og hpbar
         topLeftTextEl.innerHTML = player.health + "/" + player.maxHealth; //healthbar
@@ -98,14 +97,14 @@ function enemyStatsUpdate(){ //helt høyre stats
         "<br><font color='white'>Crit: </font>";            //crit (chance x);
 
         stats3rightEl.innerHTML =  // høyre (talldelen)
-        "<br><font color='gold'><b>" + enemy.gold +                                     " </b></font>" + //golddrop
-        "<br><font color='#820088'><b>" + enemy.xp +                                    " </b></font>" + //xpdrop
-        "<br><font color='red'>"+enemy.damageMin + "-" + enemy.damageMax +              " </font>" + //dmg
+        "<br><font color='gold'><b>" + enemy.dropGold +                                 " </b></font>" + //golddrop
+        "<br><font color='#820088'><b>" + enemy.dropXp +                                " </b></font>" + //xpdrop
+        "<br><font color='red'>"+enemy.dmgMin + "-" + enemy.dmgMax +                    " </font>" + //dmg
         "<br><font>"+enemy.atSpeed +                                                    " </font>" + //atspeed
         "<br><font>"+typeBoxes(enemy.type)+                                             " </font>" + //typen
         "<br><font>"+enemy.level+"/"+enemy.maxLevel+                                    " </font>" + //lvl
-        "<br><font>"+enemy.defence[0]+                                                  " </font>" + //first defence
-        "<br><font>"+enemy.critDmg+" (chance "+enemy.critChance+")"+                    " </font>";  //crit (chance x)
+        "<br><font>"+enemy.defence+                                                     " </font>" + //first defence
+        "<br><font>"+enemy.critMult+"x (chance "+enemy.critChance+"%)"+                  " </font>";  //crit (chance x)
 
         topRightTextEl.innerHTML = enemy.health + "/" + enemy.maxHealth;
         document.getElementById("topRightBar").style.width = ((enemy.health/enemy.maxHealth) * 596) + "px";

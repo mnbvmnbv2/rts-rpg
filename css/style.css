@@ -23,14 +23,8 @@ body {
   color: black;
   margin: auto;
   background: linear-gradient(rgb(127, 255, 249), rgb(62, 122, 119));
+  cursor: pointer;
 }
-#startButton{
-  font-size: 4vh;
-  background: linear-gradient(rgb(229, 145, 255), rgb(170, 170, 170));
-  color: black;
-  border-radius: 3vh;
-}
-
 .goneAnim{
   animation: goneAnim 250ms ease-in;
 }

@@ -1,6 +1,5 @@
-var startButtonEl = document.getElementById("startButton") //knappen man klikker for å lukke tutorial
 var startBoxEl = document.getElementById("startBox"); //boxen med tutorial
-startButtonEl.addEventListener("click",startBoxAll); //animasjon når man lukker tutorial
+startBoxEl.addEventListener("click",startBoxAll); //animasjon når man lukker tutorial
 function startBoxAll(){ //første del av å lukke den
     startBoxEl.classList.toggle("goneAnim"); //animasjonen
     setTimeout(startBoxHidden,250); //delay på at den forblir borte
@@ -62,12 +61,19 @@ function autoFight(){ //toggler start av neste fight automatisk
     }
 }
 
+function exitFight(){
+    if(autoFighting == false && fighting == false){
+        enemyPlaceTextEl.innerHTML = "None"
+    }
+}
+
 //fighter ****
 addFighterButtons();
 function addFighterButtons(){
     addBtn("Start Fight","Begins the fight", startFight); //lager start kamp knappen
     addBtn("Next Fight", "Meet the next encounter", newEncounter) //lager neste kamp knappen
     addBtn("Autofight", "Starts a script for autofight", autoFight) //lager autofight knappen
+    addBtn("Exit fight", "Leaves the fight if it has not begun", exitFight) //lager autofight knappen
 }
 function chooseFightMenu(){
     removeAllButtons();

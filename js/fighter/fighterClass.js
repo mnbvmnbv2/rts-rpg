@@ -11,30 +11,20 @@ function globalLevelUp(){ //levelup func for globalplayer
         textWinEl.innerHTML += "You are now level <font color='yellow'>" + globalLevel + "</font><br>";
     }
 }
-
+globalFightId = 0; //brukes for å gi hver fighter unik id
 class FighterClass { //felles class for fiende og player 
-    constructor(name, level, maxLevel, health, maxHealth, damageMin, damageMax, gold,
-         xp, maxXp, atSpeed, rarity, type, defence, critChance, critDmg, items, effect, fightId) {
+    constructor(name, level, maxLevel, maxHealth, dmgMin, dmgMax, atSpeed, rarity, type, defence, critChance) {
     this.name = name;
     this.level = level;
     this.maxLevel = maxLevel;
-    this.health = health;
     this.maxHealth = maxHealth;
-    this.damageMin = damageMin;
-    this.damageMax = damageMax;
-    this.gold = gold;
-
-    this.xp = xp;
-    this.maxXp = maxXp;
+    this.dmgMin = dmgMin;
+    this.dmgMax = dmgMax;
     this.atSpeed = atSpeed;
     this.rarity = rarity;
     this.type = type;
     this.defence = defence;
     this.critChance = critChance;
-    this.critDmg = critDmg;
-    this.items = items;
-    this.effect = effect;
-    this.fightId = fightId;
 }
     attack(target){ //dette er felles angrepsfunksjon
         if(target.health > 0 && this.health > 0 && dead != true){ //hvis både angriper og target er i live kan funksjonen kjøre
@@ -42,48 +32,64 @@ class FighterClass { //felles class for fiende og player
 
             //************DAMAGE*************
             let dmgEffect = "";
-            let ifDmgEffect = false;
-            let theDmg = (Math.floor(Math.random()*(this.damageMax-(this.damageMin-1)))+this.damageMin); //damage mellom min og max
+            let ifDmgEffective = false;
+            let theDmg = (Math.floor(Math.random()*(this.dmgMax-(this.dmgMin-1)))+this.dmgMin); //damage mellom min og max
 
             //super effective etc
-            if(target.type == (this.type+1)){ 
+            if(target.type == (this.type+1) && (this.type == 2) && (target.type == 0)){ 
                 theDmg=Math.round(theDmg*1.4);
                 dmgEffect = "140% effective";
-                ifDmgEffect = true;
-            } else if((this.type == 2) && (target.type == 0)){
-                theDmg=Math.round(theDmg*1.4);
-                dmgEffect = "140% effective";
-                ifDmgEffect = true;
-            } else if(target.type == (this.type-1)){
-                theDmg=Math.round(theDmg*0.6);
+                ifDmgEffective = true;
+            } else if(target.type == (this.type-1) && (this.type == 0) && (target.type == 2)){
+                theDmg=Math.round(theDmg*0.7);
                 dmgEffect = "70% effective";
-                ifDmgEffect = true;
-            } else if((this.type == 0) && (target.type == 2)){
-                theDmg=Math.round(theDmg*0.6);
-                dmgEffect = "70% effective";
-                ifDmgEffect = true;
+                ifDmgEffective = true;
             }
 
-            theDmg -= target.defence[0]; //defence/armor
+            theDmg -= target.defence; //defence/armor
             if(theDmg < 0){ //forhindrer negativ skade
                 theDmg = 0;
             }
 
             target.health -= theDmg; //gjør skaden
             textWinEl.innerHTML += this.name + " attacked " + target.name + " for " + theDmg + " damage<br>"; //skriver i tekstvindu
-            if(ifDmgEffect){
+            if(ifDmgEffective){
                 textWinEl.innerHTML += "The attack was " + dmgEffect + "<br>";
             }
             target.die(that); //sjekker om target dør
             setTimeout(function(){ that.attack(target);}, this.atSpeed ); //angriper når timeout er ute
         }
     }
+    displayStats(){
+        let stats = ""+
+        "<font color='gold'>"+this.gold+"</font>"+ //Prisen
+        "<br>"+rarityStars(this.rarity)+ //hvor sjelden utifra stjerner etc
+        "<br>"+typeBoxes(this.type)+ //typen
+        "<br>Level: "+this.level+"/"+this.maxLevel+ //lvl
+        "<br>Health: <font color='green'>"+this.health+"</font>"+ //liv
+        "<br>AttackPower: "+this.dmgMin+"-"+this.dmgMax+ //hvor mye skade
+        "<br>AttackSpeed: "+this.atSpeed+ //hvor rask
+        "<br>Experience: "+this.xp+"/"+this.maxXp+ //hvor mye xp
+        "<br>Defence:"+this.defence+ //first defence
+        "<br>Crit: "+this.critMult+"x (chance "+this.critChance+"%)" //crit (chance x)
+        return stats;
+    }
 }
 
 class EnemyClass extends FighterClass{ //kun for fiender (egen die func)
-    constructor(name,level,maxLevel,health,maxHealth,damageMin,damageMax,gold,xp,maxXp,atSpeed,rarity,type,defence,critChance,critDmg,items,effect,fightId) {
-        // Chain constructor with super
-        super(name,level,maxLevel,health,maxHealth,damageMin,damageMax,gold,xp,maxXp,atSpeed,rarity,type,defence,critChance,critDmg,items,effect,fightId);
+    constructor(name, level, maxLevel, maxHealth, dmgMin, dmgMax, atSpeed, rarity, type, defence, critChance, goldDrop, dropXp) {
+        super(name, level, maxLevel, maxHealth, dmgMin, dmgMax, atSpeed, rarity, type, defence, critChance);
+        this.goldDrop = goldDrop;
+        this.dropXp = dropXp; 
+
+        this.fightId = globalFightId;
+        globalFightId++
+
+        this.items = {};
+        this.effect = {};
+
+        this.health = this.maxHealth;
+        this.critMult = 2;
     }
     die(killer){ //denne er kun for fiender
         if(this.health <= 0){ //hvis fienden er død
@@ -108,14 +114,26 @@ class EnemyClass extends FighterClass{ //kun for fiender (egen die func)
 }
 
 class PlayerClass extends FighterClass{ //dette er player class (levelup og egen die func)
-    constructor(name,level,maxLevel,health,maxHealth,damageMin,damageMax,gold,xp,maxXp,atSpeed,rarity,type,defence,critChance,critDmg,items,effect,fightId) {
-        // Chain constructor with super
-        super(name,level,maxLevel,health,maxHealth,damageMin,damageMax,gold,xp,maxXp,atSpeed,rarity,type,defence,critChance,critDmg,items,effect,fightId);
+    constructor(name, level, maxLevel, maxHealth, dmgMin, dmgMax, atSpeed, rarity, type, defence, critChance) {
+        super(name, level, maxLevel, maxHealth, dmgMin, dmgMax, atSpeed, rarity, type, defence, critChance);
+
+        this.fightId = globalFightId;
+        globalFightId++
+    
+        this.items = {};
+        this.effect = {};
+    
+        this.health = this.maxHealth;
+        this.critMult = 2;
+
+        this.xp = 0;
+        this.maxXp = Math.round(this.maxHealth+this.dmgMax+this.dmgMin+(this.level)*5);
+        this.gold = Math.round(((this.maxHealth+this.dmgMin+this.dmgMin)*(this.rarity+1)*3+((this.level)*10))/((this.maxXp/500)+(this.atSpeed/500)));
     }
     die(){ //hvis player dør
         if(this.health <= 0){ //når player 0 liv
-            this.health = 0;
-            textWinEl.innerHTML += this.name + " died!";
+            this.health = 0; // så det ikke blir negativ hp
+            textWinEl.innerHTML += this.name + " died!"; //skriver at den er død
             dead = true; //player død= sann
             fighting = false; //stopper å sloss
             team.splice(team.indexOf(this),1); //fjerner denne fra team
@@ -123,17 +141,17 @@ class PlayerClass extends FighterClass{ //dette er player class (levelup og egen
     }
     levelUp(){ //levelup func for player
         if(this.xp >= this.maxXp){ //hvis man har nådd maxXP
-            console.log("test")
-            if(this.level < this.maxLevel){
-                this.xp -= this.maxXp;
-                this.maxXp = this.maxXp+(this.maxXp/this.level);
+            if(this.level < this.maxLevel){ //så man ikke går over maxlvl
+                this.xp -= this.maxXp; // setter ned xpen men man beholder hvis man går over
                 this.damageMin = this.damageMin+(this.damageMin/this.level);
                 this.damageMax = this.damageMax+(this.damageMax/this.level);
                 this.maxHealth = this.maxHealth+(this.maxHealth/this.level);
                 this.health = this.maxHealth;
                 this.level++;
+                this.maxXp = (this.maxHealth+this.dmgMax+this.dmgMin+(this.level)*5); //xpformel
+                this.gold = ((this.maxHealth+this.dmgMin+this.dmgMin)*(this.rarity+1)*3+((this.level)*10))/((this.maxXp/500)+(this.atSpeed/500)); //goldformel
                 textWinEl.innerHTML += this.name + " is now level <font color='yellow'>" + this.level + "</font><br>";
-                if(menu == "teamMenu"){
+                if(menu == "teamMenu"){ //så stats skal oppdateres hvis man ser på de
                     chooseTeamMenu();
                 }
             }
@@ -141,67 +159,50 @@ class PlayerClass extends FighterClass{ //dette er player class (levelup og egen
     }
 }
 
+//rarities
+const rarities = ["", 
+    "<font color='white'>✩</font>",
+    "<font color='white'>✩✩</font>",
+    "<font color='white'>✩✩✩</font>"]
 function rarityStars(rarity){ //returnerer stjernene til en rarityverdi
-    var rarityStars;
-    if(rarity == 0){
-        rarityStars = "";
-    } else if(rarity == 1){
-        rarityStars = "<font color='white'>✩</font>";
-    } else if(rarity == 2){
-        rarityStars = "<font color='white'>✩✩</font>";
-    }
-    return rarityStars;
+    return rarities[rarity];
 }
 
+//types
+const types = ["🟦","🟥","🟨"]
 function typeBoxes(type){
-    var typeBox;
-    if(type == 0){
-        typeBox = "🟦";
-    } else if(type == 1){
-        typeBox = "🟥";
-    } else if(type == 2){
-        typeBox = "🟨";
-    }
-    return typeBox;
+        return types[type];
 }
 
-var player; //lager global variabel for player og enemy
+//lager global variabel for player og enemy
+var player;
 var enemy;
 
+createEncounter();
 function newEncounter(){
     if(enemy.health <= 0 && player.health > 0){
         player.health = player.maxHealth;
         createEncounter()
     }
 }
-createEncounter();
-function createEnemy(name,level,hp,dmgmin,dmgmax,golddrop,xp,atspeed,rarity,type,defence,critChance,critDmg,effect){
+function createEnemy(name,level,hp,dmgmin,dmgmax,atspeed,rarity,type,defence,critChance,golddrop,dropxp){
     enemy = new EnemyClass(
         "<font color='red'>" + name + "</font>", //name
         level, //level
         level, //maxlvl
-        hp, //hp
         hp, //maxhp
         dmgmin, //dmgmin
         dmgmax, //dmgmax
-        golddrop, //gold
-        xp, //xp
-        xp, //maxxp
         atspeed, //atSpeed
         rarity, //rarity
         type, //type
         defence, //defence
         critChance, //critChance
-        critDmg, //critDmg
-        [], //items
-        effect, //effect
-        "fighter" + globalFightId
+        golddrop, //hvor mye gold man får
+        dropxp //hvor mye xp man får
     )
-    globalFightId++;
-
     encounterNumber++; //øker antall folk man har møtt med 1
-    localStorage.setItem("encounterNumber",encounterNumber) //lagrer det i localStorage
-    textWinEl.innerHTML = "You met " + enemy.name + "<br>";
+    textWinEl.innerHTML += "You met " + enemy.name + "<br>";
 }
 
 function startFight(){
