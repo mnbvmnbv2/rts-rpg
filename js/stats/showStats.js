@@ -7,6 +7,8 @@ const stats1leftEl = document.getElementById('stats1left');
 const stats1rightEl = document.getElementById('stats1right');
 const stats2leftEl = document.getElementById('stats2left');
 const stats2rightEl = document.getElementById('stats2right');
+const playerPlaceTextEl = document.getElementById('playerPlaceText'); //Playerbox with info, leftside
+const enemyPlaceTextEl = document.getElementById('enemyPlaceText'); //Enemybox with info, rightside
 
 // clock
 let min = 0; //global for klokkefunk
@@ -18,19 +20,11 @@ function statsUpdate() {
 	if (dead == true) {
 		playerPlaceTextEl.innerHTML = 'Empty';
 	} else {
-		playerPlaceTextEl.innerHTML = //i playerboxen
-			"<font color='#FFFFFF'>" +
-			player.name +
-			rarityStars(player.rarity) + //navn og rarity
-			'<br>Type: ' +
-			typeBoxes(player.type) + //type
-			'<br>Level: ' +
-			player.level + //level
-			"<br>Health: <font color='green'>" +
-			player.health +
-			"</font>/<font color='green'>" +
-			player.maxHealth +
-			'</font>'; //health av maxHealth
+		playerPlaceTextEl.innerHTML = `<font color='#FFFFFF'>${player.name}<br>
+			${rarityStars(player.rarity)}<br>
+			Type: ${typeBoxes(player.type)}<br>
+			Level: ${player.level}<br>
+			Health: <font color='green'>${player.health}</font>/<font color='green'>${player.maxHealth}</font>`;
 
 		stats2leftEl.innerHTML = //venstre (text delen)
 			"<font color='white'>Damage: </font>" + //dmg
@@ -42,37 +36,13 @@ function statsUpdate() {
 			"<br><font color='white'>Crit: </font>" + //crit (chance x)
 			"<br><font color='white'>Items: </font>"; //first item;;
 
-		stats2rightEl.innerHTML = //samme som over men talldelen
-			"<font color='red'>" +
-			player.dmgMin +
-			'-' +
-			player.dmgMax +
-			' </font>' + //dmg
-			'<br><font>' +
-			player.atSpeed +
-			' </font>' + //atspeed
-			'<br><font>' +
-			typeBoxes(player.type) +
-			' </font>' + //typen
-			'<br><font>' +
-			player.level +
-			'/' +
-			player.maxLevel +
-			' </font>' + //lvl
-			'<br><font>' +
-			player.xp +
-			'/' +
-			player.maxXp +
-			' </font>' + //hvor mye xp
-			'<br><font>' +
-			player.defence +
-			' </font>' + //first defence
-			'<br><font>' +
-			player.critMult +
-			'x (chance ' +
-			player.critChance +
-			'%)' +
-			' </font>'; //crit (chance x)
+		stats2rightEl.innerHTML = `"<font color='red'>${player.dmgMin}-${player.dmgMax}</font><br> 
+			<font>${player.atSpeed}</font><br>
+			<font>${typeBoxes(player.type)}</font><br>
+			<font>${player.level}/${player.maxLevel}</font><br>
+			<font>${player.xp}/${player.maxXp}</font><br>
+			<font>${player.defence}</font><br>
+			<font>${player.critMult}x (chance ${player.critChance}%)</font>`;
 
 		//xp og hpbar
 		topLeftTextEl.innerHTML = player.health + '/' + player.maxHealth; //healthbar

@@ -1,10 +1,13 @@
+// enemies "tree", {world : [enemies]}
 let enemies = {
 	Street : [ { name: '🐀Rat' }, { name: '🐀Huge Rat' } ]
 };
 
 function createEncounter() {
+	//name
 	let enemyName = enemies[world][Math.floor(Math.random() * enemies[world].length)].name;
 
+	//function for creating enemy
 	createEnemy(
 		enemyName, //name
 		worldDifficulty, //level
@@ -17,6 +20,6 @@ function createEncounter() {
 		0, //defence
 		0, //critchance
 		worldDifficulty, //golddrop
-		worldDifficulty //xp
+		worldDifficulty //xpdrop
 	);
-} //name,level,hp,dmgmin,dmgmax,atspeed,rarity,type,defence,critChance,golddrop,dropxp
+}
