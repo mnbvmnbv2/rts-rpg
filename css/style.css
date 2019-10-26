@@ -132,7 +132,7 @@ body {
     height: auto;
     text-align: center;
     color: white;
-    overflow: hidden;
+    overflow-y: auto;
 }
 
 /***** Downwin *****/

@@ -1,24 +1,22 @@
-function createEncounter(){
-    if(world == "Street"){
-        let enemyNames = [
-            "🐀Rat",
-            "🐀Huge Rat"
-        ];
-        let enemyName = enemyNames[Math.floor(Math.random()*enemyNames.length)];
-        createEnemy(enemyName, //name
-        1*worldDifficulty, //level
-        3*worldDifficulty, //hp
-        1*worldDifficulty, //dmgmin
-        2*worldDifficulty-1, //dmgmax
-        1*worldDifficulty, //golddrop
-        1*worldDifficulty, //xp
-        2500, //atspeed
-        0, //rarity
-        Math.floor(Math.random()*3), //type
-        [0,0,0], //defence
-        0, //critchacne
-        0, //critdmg
-        [0] //effect
-        );
-    }//createEnemy(name,level,hp,dmgmin,dmgmax,golddrop,xp,atspeed,rarity,type,defence,critChance,critDmg,effect)
-}
+let enemies = {
+	Street : [ { name: '🐀Rat' }, { name: '🐀Huge Rat' } ]
+};
+
+function createEncounter() {
+	let enemyName = enemies[world][Math.floor(Math.random() * enemies[world].length)].name;
+
+	createEnemy(
+		enemyName, //name
+		worldDifficulty, //level
+		worldDifficulty * 3, //hp
+		worldDifficulty, //dmgmin
+		worldDifficulty * 2 - 1, //dmgmax
+		2500, //atspeed
+		0, //rarity
+		Math.floor(Math.random() * types.length), //type
+		0, //defence
+		0, //critchance
+		worldDifficulty, //golddrop
+		worldDifficulty //xp
+	);
+} //name,level,hp,dmgmin,dmgmax,atspeed,rarity,type,defence,critChance,golddrop,dropxp
