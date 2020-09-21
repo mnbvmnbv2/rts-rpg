@@ -18,9 +18,11 @@ var buildings = [];
 
 //building*****
 function addBuildingButtons() {
-	addBtn('House', 'Bigger teamsize', startFight); //lager start kamp knappen
+	addBtn('House', 'Bigger teamsize', () => {
+		console.log('jsajf');
+	}); //lager start kamp knappen
 	addBtn('Barracks', 'Stronger fighters', newEncounter); //lager neste kamp knappen
-	addBtn('Mine', 'More g/s', autoFight); //lager autofight knappen
+	addBtn('Mine', 'More g/s', upgradeMine); //lager autofight knappen
 	//addBtn("Mine")
 	for (i in buildings) {
 		//for i in buildings
@@ -71,3 +73,15 @@ function upgradeBuilding(e) {
 		dead = false;
 	}
 }
+
+let mineBuild = 0;
+
+/*sfafa*/
+function upgradeMine() {
+	mineBuild++;
+}
+function mining() {
+	gold += mineBuild;
+	setTimeout(mining, 5000);
+}
+mining();

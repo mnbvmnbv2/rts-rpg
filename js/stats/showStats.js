@@ -11,8 +11,8 @@ const playerPlaceTextEl = document.getElementById('playerPlaceText'); //Playerbo
 const enemyPlaceTextEl = document.getElementById('enemyPlaceText'); //Enemybox with info, rightside
 
 // clock
-let min = 0; //global for klokkefunk
-let sec = 0; //global for klokkefunk
+let min = 0;
+let sec = 0;
 
 statsUpdate();
 function statsUpdate() {
@@ -36,7 +36,7 @@ function statsUpdate() {
 			"<br><font color='white'>Crit: </font>" + //crit (chance x)
 			"<br><font color='white'>Items: </font>"; //first item;;
 
-		stats2rightEl.innerHTML = `"<font color='red'>${player.dmgMin}-${player.dmgMax}</font><br> 
+		stats2rightEl.innerHTML = `<font color='red'>${player.dmgMin}-${player.dmgMax}</font><br> 
 			<font>${player.atSpeed}</font><br>
 			<font>${typeBoxes(player.type)}</font><br>
 			<font>${player.level}/${player.maxLevel}</font><br>
